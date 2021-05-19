@@ -14,55 +14,74 @@
 </head>
 
 <body>
-    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" style="padding-left: 0 !important;">
+        <div class="modal-dialog" style="max-width: 700px;">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">対応フォーマットの例</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <p class="mb-1">タグのないWEBVTT</p>
-                    <code>
-                        WEBVTT<br>
-                        <br>
-                        NOTE This is a note test.<br>
-                        <br>
-                        1<br>
-                        00:00:22.230 --> 00:00:24.606<br>
-                        This is the first subtitle.<br>
-                        <br>
-                        2<br>
-                        00:00:30.739 --> 00:00:34.074<br>
-                        This is the second.<br>
-                        <br>
-                        3<br>
-                        00:00:34.159 --> 00:00:35.743<br>
-                        Third<br>
-                    </code>
-                    <p class="mt-3 mb-1">タグのあるWEBVTT（字幕行の先頭にあることが条件）</p>
-                    <code>
-                        WEBVTT<br>
-                        <br>
-                        NOTE This is a note test.<br>
-                        <br>
-                        1<br>
-                        00:00:22.230 --> 00:00:24.606<br>
-                        &lt;v Speaker 1&gt;This is the first subtitle.<br>
-                        <br>
-                        2<br>
-                        00:00:30.739 --> 00:00:34.074<br>
-                        &lt;v Speaker 0&gt;This is the second.<br>
-                        <br>
-                        3<br>
-                        00:00:34.159 --> 00:00:35.743<br>
-                        &lt;v Speaker 1&gt;Third<br>
-                    </code>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg">
+                                <p class="mb-1">タグのないWEBVTT</p>
+                                <code>
+                                WEBVTT<br>
+                                <br>
+                                NOTE This is a note test.<br>
+                                <br>
+                                1<br>
+                                00:00:22.230 --> 00:00:24.606<br>
+                                This is the first subtitle.<br>
+                                <br>
+                                2<br>
+                                00:00:30.739 --> 00:00:34.074<br>
+                                This is the second.<br>
+                                <br>
+                                3<br>
+                                00:00:34.159 --> 00:00:35.743<br>
+                                Third<br>
+                                </code>
+                            </div>
+                            <div class="col-lg">
+                                <p class="mb-1">タグのあるWEBVTT（字幕行の先頭にあることが条件）</p>
+                                <code>
+                                WEBVTT<br>
+                                <br>
+                                NOTE This is a note test.<br>
+                                <br>
+                                1<br>
+                                00:00:22.230 --> 00:00:24.606<br>
+                                &lt;v Speaker 1&gt;This is the first subtitle.<br>
+                                <br>
+                                2<br>
+                                00:00:30.739 --> 00:00:34.074<br>
+                                &lt;v Speaker 0&gt;This is the second.<br>
+                                <br>
+                                3<br>
+                                00:00:34.159 --> 00:00:35.743<br>
+                                &lt;v Speaker 1&gt;Third<br>
+                            </code>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="toast-container position-absolute bottom-0 end-0 p-3">
+        <div class="toast d-flex align-items-center text-white bg-success border-0" role="alert" aria-live="assertive"
+            aria-atomic="true" id="copySuccess">
+            <div class="toast-body">
+                クリップボードにコピーしました！
+            </div>
+            <button type="button" class="btn-close btn-close-white ms-auto me-2" data-bs-dismiss="toast"
+                aria-label="Close"></button>
         </div>
     </div>
 
@@ -77,18 +96,23 @@
             対象ファイルの字幕データ行に&lt;v Speaker 1&gt;などのタグが、"先頭”に入っている場合のみ対応可能です。<a href="" data-bs-toggle="modal"
                 data-bs-target="#exampleModal">対応フォーマットの例</a><br>
             例によって動作保証はありません。変換後フォーマットが壊れていないか数行目視で確認することをおすすめします。<br>
-            フォーム内でWindowsの場合はCTRL+A、MacOSの場合はCommand＋Aで全選択できますので、コピペしてご利用ください。</p>
-        <p>データは、サーバー側へ保存されることはありません。</p>
+        <p>データは、サーバー側へ保存されることはありません。<a href="https://github.com/nishi4321/WEBVTT_space_replacer" target="_blank">Source code on Github</a></p>
 
-        <div class="mb-3">
-            <label for="textarea_input" class="form-label">変換したいWEBVTTデータ</label>
-            <textarea class="form-control" id="textarea_input" rows="8"></textarea>
-        </div>
         <button type="button" class="btn btn-primary" id="convertButton">変換</button>
         <button type="button" class="btn btn-secondary" id="clearButton">結果をクリア</button>
-        <div class="mb-3">
-            <label for="textarea_output" class="form-label">変換結果 WEBVTTデータ</label>
-            <textarea class="form-control" id="textarea_output" rows="8"></textarea>
+        <button type="button" class="btn btn-secondary" id="copyButton">結果をクリップボードにコピー</button>
+        <div class="row">
+            <div class="col-md"><div class="mt-3">
+                <label for="textarea_input" class="form-label">変換したいWEBVTTデータ</label>
+                <textarea class="form-control" id="textarea_input" rows="20"></textarea>
+            </div>
+            </div>
+            <div class="col-md">
+                <div class="mt-3">
+                    <label for="textarea_output" class="form-label">変換結果 WEBVTTデータ</label>
+                    <textarea class="form-control" id="textarea_output" rows="20"></textarea>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -127,10 +151,23 @@
             return result;
         }
 
-
         $('#clearButton').on('click', function () {
             $('#textarea_output').val("");
         });
+
+        $('#copyButton').on('click', function () {
+            var textarea = document.getElementById("textarea_output");
+            textarea.select();
+            document.execCommand("copy");
+            $('#copySuccess').toast('show');
+        })
+
+        document.querySelectorAll('.toast')
+            .forEach(function (toastNode) {
+                var toast = new bootstrap.Toast(toastNode, {
+                    autohide: true
+                })
+            })
     </script>
 </body>
 
